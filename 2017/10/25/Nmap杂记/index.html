@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Me" />
+
+
+
+<meta name="description" content="Nmap参数的一些整理前言对nmap使用的一些小记录tips">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Namp杂记">
+<meta property="og:url" content="http://example.com/2017/10/25/Nmap%E6%9D%82%E8%AE%B0/index.html">
+<meta property="og:site_name" content="A dying dog？">
+<meta property="og:description" content="Nmap参数的一些整理前言对nmap使用的一些小记录tips">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-10-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-12-28T09:09:28.321Z">
+<meta property="article:author" content="Me">
+<meta property="article:tag" content="知识梳理">
+<meta name="twitter:card" content="summary">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="A dying dog？" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Namp杂记 | A dying dog？</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/"></a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>Menu</li>
+                        <li>Tags</li>
+                        
+                        
+                        <li>About Me</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="/" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" href="/" title="新浪微博"></a>
+                            
+                                <a class="fa RSS" href="/" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0/" rel="tag">技术学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">渗透测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/" rel="tag">知识梳理</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+                
+                <section class="switch-part switch-part3">
+                
+                    <div id="js-aboutme">一条快死的狗</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页"></a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页"></a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="/" title="Email"></a>
+                            
+                                <a class="fa 新浪微博" target="_blank" href="/" title="新浪微博"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="Tags" friends="Friends" about="About Me"/>
+</nav>
+      <div class="body-wrap"><article id="post-Nmap杂记" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/25/Nmap%E6%9D%82%E8%AE%B0/" class="article-date">
+      <time datetime="2017-10-24T16:00:00.000Z" itemprop="datePublished">2017-10-25</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Namp杂记
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/" rel="tag">知识梳理</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="Nmap参数的一些整理"><a href="#Nmap参数的一些整理" class="headerlink" title="Nmap参数的一些整理"></a><strong>Nmap参数的一些整理</strong></h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>对nmap使用的一些小记录tips</p>
+<a id="more"></a>
+
+<blockquote>
+<p>-A : 全面扫描</p>
+</blockquote>
+<h2 id="1、主机发现："><a href="#1、主机发现：" class="headerlink" title="1、主机发现："></a>1、主机发现：</h2><blockquote>
+<p>-sP : Ping 扫描<br>-P0 : 无Ping扫描<br>-PS : TCP SYN Ping 扫描<br>-PA : TCP ACK Ping 扫描<br>-PU: UDP Ping扫描<br>-PE;-PP;-PM : ICMP Ping Types 扫描<br>第一个发送ICMP Echo 数据包探测目标，第二个是ICMP时间戳Ping扫描，第三个为ICMP地址掩码Ping扫描<br>-PR : ARP Ping 扫描<br>-n : 禁止DNS反向解析<br>-R : 反向域名解析<br>–system-dns : 使用系统域名解析器<br>-sL : 列表扫描<br>-6 : 扫描 IPv6 地址<br>–traceroute : 路由跟踪<br>-PY : SCTP INIT Ping 扫描  </p>
+</blockquote>
+<h2 id="2、搜索网络"><a href="#2、搜索网络" class="headerlink" title="2、搜索网络"></a>2、搜索网络</h2><blockquote>
+<p>-T：时序选项 T0-T5不同选项，选项越大扫描越快，牺牲精准度，一般使用T4<br>-p：端口扫描顺序 可以指定一个端口号或者其范围<br>-sS：TCP SYN 扫描 相对来说较为隐蔽的扫描方式<br>-sT：TCP连接扫描<br>-sU：UDP扫描<br>-sN;-sF;-sX：隐蔽扫描<br>-sA：TCP ACK 扫描<br>-sW：TCP窗口扫描<br>-sM：TCP Maimon 扫描 此技术与Null，FIN，Xmas扫描完全一样<br>–scanflags：自定义TCP扫描 六个标志位URG,ACK,PSH,RST,SYN,FIN的任意组合。在非一般场景使用该选项<br>-sI：空闲扫描 也就是源地址欺骗扫描 -sI + 僵尸主机<br>-sO：IP协议扫描<br>-b：FTP Bounce扫描  </p>
+</blockquote>
+<h2 id="3、指纹识别与探测"><a href="#3、指纹识别与探测" class="headerlink" title="3、指纹识别与探测"></a>3、指纹识别与探测</h2><blockquote>
+<p>-sV：版本探测 不要过分相信-A与-sV选项，Nmap不能全部躲过一些软件的伪装<br>–allports：全端口版本探测<br>–version-intensity：设置扫描强度 可以选择0~9的强度，默认强度为7，强度越高，时间越长，服务越可能被正确识别<br>–version-light：轻量级扫描 对应强度为2的扫描，两者是等价的<br>–version-all：重量级扫描 对应强度为9的扫描<br>–version-trace：获取详细版本信息<br>-sR：RPC扫描 该选项多用于与其他端口扫描选项相结合使用它对所有发现的TCP/UDP端口执行SumRPC程序NULL命令，来试图确定他们是否为RPC端口<br>-O：启用操作系统探测<br>–osscan-limit：对指定的目标进行操作系统探测 该选项仅在使用-O或者-A进行操作系统检测时起作用<br>–osscan-guess；–fuzzy：推测系统并识别 该选项对无法判断的操作系统进行一个概率取值  </p>
+</blockquote>
+<h2 id="4、速率调整"><a href="#4、速率调整" class="headerlink" title="4、速率调整"></a>4、速率调整</h2><blockquote>
+<p>–min-hostgroup：调整并行扫描组的大小 Nmap默认情况下进行扫描的时候，首先开始扫描较小的值，最小为5，随后慢慢增大组的大小，最大为1024，而这个最小值我们可能用此选项进行说明，–max-hostgroup选项用于说明最大值，Nmap不会超过这个大小<br>–min-parallelism；–max-parallelism：调整探测报文的并行度<br>–min-rtt-timeout；–max-rtt-timeout；–initial-rtt-timeout：调整探测报文超时 这些选项对于有严格过滤或者不能Ping通的主机有很好的突破效果，一般情况下rtt时间不得小于100ms，也最好不要大于1000ms<br>–host-timeout：放弃低速目标主机 对一些反应过慢且不重要的主机进行忽略，此选项我们一般设置为1800000ms，不超过半小时，当我们要过滤时，应根据自身的网络情况等多方面因素进行决定<br>–scan-delay；–max-scan-delay：调整探测报文的时间间隔  </p>
+</blockquote>
+<h2 id="5、防火墙-IDS逃逸"><a href="#5、防火墙-IDS逃逸" class="headerlink" title="5、防火墙/IDS逃逸"></a>5、防火墙/IDS逃逸</h2><blockquote>
+<p>-f：报文分段 在Nmap使用-f选项时会将TCP头分段在几个包中，使得包过滤器，IDS以及其他工具的检测更加困难。一些主机会禁止相应的ICMP请求，对于这种情况可以使用报文分段<br>–mtu：指定偏移大小 使用指定的MTU可以达到逃逸防火墙IDS的目的，需要注意的是偏移量必须为8的倍数<br>-D：IP欺骗 -D选项可以指定多个IP地址，或者使用RND随机生成几个地址（RND:11 随机生成11个地址），需要注意的是在进行版本检测或者TCP扫描的时候诱饵是无效的。<br>-sI：源地址欺骗 在之前的空闲扫描中有说到，主要是用作源地址欺骗<br>–source-port：源端口欺骗<br>–data-length：指定发包长度 通常情况下，TCP包是40个字节，ICMP Echo有28 个字节，所以在原来的报文基础上随机附加数据可以达到规避防火墙的效果<br>–randomize-hosts：目标主机随机排序 该选项对目标主机进行随机的排列，最多可达8096个主机，单方面使用这个选项对防火墙/IDS逃逸的效果并不大，如果配合时间选项则会有很好的效果<br>–spoof-mac：MAC地址欺骗 我们可以使用字符串“0”随机分配一个mac地址，也可以指定一个mac地址，但是最好是真实存在的，才能达到欺骗管理员的效果，–spoof-mac选项可以使用参数0，MAC Address(手动指定一个地址)，Vendor Name（从指定的厂商生成一个MAC地址）。</p>
+</blockquote>
+<h2 id="6、部分script脚本使用"><a href="#6、部分script脚本使用" class="headerlink" title="6、部分script脚本使用"></a>6、部分script脚本使用</h2><pre><code>(1)信息搜集</code></pre>
+<blockquote>
+<p>–script ip-geolocation-<em>：IP信息搜集 nmap –script ip-geolocation-</em> <a target="_blank" rel="noopener" href="http://www.xxx.com/">www.xxx.com</a><br>whois：WHOIS查询 nmap –script whois <a target="_blank" rel="noopener" href="http://www.xxx.com,有时候whois查询到的信息并不准确,我们更加热衷于查询whois的历史记录/">www.xxx.com，有时候whois查询到的信息并不准确，我们更加热衷于查询whois的历史记录</a> nmap –script whois –script-args whois whodb=nofollow <a target="_blank" rel="noopener" href="http://www.xxx.com/">www.xxx.com</a><br>http-email-harvest：搜集E-mail信息 nmap –script http-email-harvest <a target="_blank" rel="noopener" href="http://www.xxx.com/">www.xxx.com</a> 耗时较长<br>hostmap-ip2hosts：IP反查 nmap -sn –script hostmap-ip2hosts <a target="_blank" rel="noopener" href="http://www.xxx.com/">www.xxx.com</a><br>dns-brute：DNS信息搜索 nmap –script dns-brute <a target="_blank" rel="noopener" href="http://www.xxx.com/">www.xxx.com</a> 该脚本的默认线程是5，如果扫描一个大型网络，速度可能会慢，可以设置一下扫描线程 nmap –script dns-brute dns-brute.threads=10 <a target="_blank" rel="noopener" href="http://www.xxx.com/">www.xxx.com</a> 如果查询多个域名也可以指定一个列表 nmap –script dns-brute dns-brute.threads=10，dns-brute.hostlist <a target="_blank" rel="noopener" href="http://www.xxx.com/">www.xxx.com</a><br>membase-http-info：检索系统信息 nmap -p 445 192.<em>.</em>.* –script membase-http-info 使用该脚本可以轻易的了解目标操作系统的详细信息，配合前面学习的几个参数有更好的效果<br>smb-security-mode.nse：后台打印机服务漏洞 nmap –script smb-security-mode.nse -p 445 192.xxx.xxx.xxx 使用该脚本可以检测打印机服务漏洞，该脚本我们需要手动指定端口<br>smb-check-vulns.nse：系统漏洞扫描 nmap –script smb-check-vulns.nse -p 445 192.xxx 进行SMB漏洞扫描，还可以使用U:或T:进行配合<br>http-stored-xss.nse：扫描web漏洞 nmap -p 80 –script http-stored-xss.nse www.***.com 该脚本可以帮助我们完成发现网站的XSS漏洞，http-sql-injection脚本可以帮助我们发现SQL注入漏洞<br>snmp-win32-services：通过snmp列举Windows服务/账户 nmap -sU -p 161 –script=snmp-win32-services 192.xxx nmap –sU -p 161 –script=snmp-win32-users 192.xxx 前一个脚本可以获取目标正在运行的服务，后面的脚本可以看到目标所有的账户<br>dns-brute：枚举DNS服务器的主机名 nmap –script dns-brute –script-args dns-brute.domain=baidu.com 可以使用线程增加速度，使用hostlist指定列表<br>http-headers/http-sitemap-generator：HTTP信息搜集 1.使用-sV选项即可对HTTP版本进行探测（nmap -sV -p 80 <a target="_blank" rel="noopener" href="http://www.xxx.com)/">www.xxx.com）</a> 2.使用命令“nmap -p 80 –script=http-headers 目标地址”即可对目标地址进行HTTP头信息探测 3.HTTP目录结构探测 使用命令“nmap -p 80 –script=http-sitemap-generator 目标地址”即可爬行web目录结构<br>ssl-enum-ciphers：枚举SSL密钥 使用命令“nmap -p 443 –script=ssl-enum-ciphers 目标”即可枚举ssl密钥<br>ssh-hostkey：SSH服务密钥信息探测 “nmap -p 22 –script ssh-hostkey –script-args ssh_hostkey=full 127.0.0.1”ssh_hostkey的输出格式有四种：full，bubble，visual，all</p>
+</blockquote>
+<pre><code>(2)数据库方面</code></pre>
+<blockquote>
+<p>mysql-databases：Mysql列举数据库 使用命令“nmap -p3306 –script mysql-databases –script-args mysqluser=root，mysqlpass 192.x.x.x”<br>mysql-variables：列举Mysql变量 使用命令“nmap -p3306 –script=mysql-variables 192.x.x.x”如果端口无法确定的话，可以使用前面学习的扫描进行确认<br>mysql-empty-password：检查Mysql密码 使用命令“nmap -p3306 –script=mysql-empty-password 192.xxx” 该命令用于检查Mysql是否是空密码，或者是root，或允许匿名登入<br>mysql-brute：审计Mysql密码 使用命令“nmap -p3306 –script=mysql-brute 192.xxx” 该脚本用于Mysql弱口令，也可以自定义账号密码字典“nmap -p 3306 –script=mysql-brute userdb=路径 passdb=路径 192.xxx”<br>mysql-audit：审计Mysql安全配置 使用命令“nmap -p 3306 –script mysql-audit –script-args “mysql-audit.username=’数据库账户’，\mysql-audit.password=’数据库密码’，mysql-audit.filename=’?’ ”<br>oracle-brute：审计Oracle密码 使用命令“nmap –script oracle-brute -p 1521 –script-args oracle-brute.sid=test 192.xxx” oracle-brute脚本用于暴力破解oracle密码，使用-p指向目标端口号，如果需要自定义账号密码字典破解，则“nmap –script oracle-brute -p 1521 –script-args oracle-brute.sid=test –script-args userdb=路径，passdb=路径 192.xxx”<br>ms-sql-brute：审计Mssql密码 使用命令“nmap -p 1433 –script ms-sql-brute –script-args userdb=路径，passdb=路径 192.xxx”<br>ms-sql-empty-password：检查mssql空密码 使用命令“nmap -p 1433 –script ms-sql-empty-password 192.xxx”<br>ms-sql-tables：读取mssql数据 使用命令“nmap –script ms-sql-tables –script-args mssql.username=数据库账户，mssql.password=数据库密码 192.xxx”<br>ms-sql-xp-cmdshell：mssql执行系统命令 使用命令“nmap –script ms-sql-xp-cmdshell -script-args mssql.username=数据库账户，mssql.password=数据库密码,ms-sql-xp-cmdshell.cmd=“ipconfig” 192.xxx”<br>pgsql-brute：审计pgsql密码 使用命令“nmap -p 5432 –script pgsql-brute 192.xxx”  </p>
+</blockquote>
+<pre><code>(3)各类暴力破解</code></pre>
+<blockquote>
+<p>http-brute：审计HTTP身份审计 使用命令“nmap –script http-brute -p 80 <a target="_blank" rel="noopener" href="http://www.xxx.xxx”/">www.xxx.xxx”</a> 可以对HTTP中账号密码进行简单的破解<br>ftp-brute：审计ftp服务器 使用命令“nmap –script ftp-brute –script-args userdb=路径，passdb=路径 -p 21 192.xxx”进行暴力破解ftp账号密码<br>http-wordpress-brute：审计wordpress程序 使用命令“nmap -p80 –script http-wordpress-brute –script-args userdb=路径，passdb=路径 192.xxx”http-wordpress-brute.threading=10，可以设置线程数<br>http-joomla-brute：审计Joomla程序 使用命令“nmap -script http-joomla-brute 192.*”可以设置–script-args字典和线程<br>pop3-brute：审计邮件服务器 使用命令“nmap -p110 –script=pop3-brute 192.xxx”<br>smb-brute.nse：审计SMB口令 使用命令“nmap –script smb-brute.nse -p445 192.*” 对于复杂密码，加上–script-args passdb=路径 自定义字典<br>vnc-brute：审计vnc服务器 使用命令“nmap –script vnc-brute -p 5900 192.xxx”+字典<br>smtp-brute：审计SMTP服务器 使用命令“nmap -p 25 –script smtp-brute 192.xxx”即可审计SMTP服务器，通过“nmap -p 25 –script=smtp-enum-users.nse smtp.xxx.com”枚举远程系统所有的用户<br>stuxnet-detect：检测Stuxnet蠕虫 使用命令“nmap –script stuxnet-detect -p 445 192.*”<br>snmp-netstat，snmp-processes，snmp-win32-services，snmp-brute：snmp服务安全审计 使用命令“nmap -sU -p 161 –script=snmp-netstat 192.xxx“即可获取目标主机网络连接状态 “snmp -sU -p 161 –script=snmp-processes 192.xxx”通过snmp服务协议枚举运行的系统进程 最后通过“nmap -sU -p 161 –script=snmp-win32-services 192.xxx”获得windows服务器的服务<br>“snmp -sU -p 161 –script snmp-brute 192.xxx”对snmp服务进行口令审计  </p>
+</blockquote>
+<h2 id="7、其他的一些使用"><a href="#7、其他的一些使用" class="headerlink" title="7、其他的一些使用"></a>7、其他的一些使用</h2><blockquote>
+<p>–send-eth：发送以太网数据包 使用命令“nmap –send-eth 192.xxx”<br>–send-ip：网络层发送 使用命令“nmap –send-ip 192.xxx”<br>–privileged：假定拥有所有权 使用命令“nmap -privileged 192.xxx”<br>–interactive：在交互模式中启动 使用命令“nmap –interactive”<br>-V：查看nmap版本号 使用命令“nmap -V”<br>-d：设置调试级别 使用命令“nmap -d 1 192.xxx”调试级别为1~9，级别越高数据越多<br>–packet-trace：跟踪发送接受的报文 该选项会将nmap接收到的报文全部打印出来，使用命令“nmap –packet-trace -p 20-30 192.*<em>”生成少量报文便于分析<br>–iflist：列举接口和路由 使用命令“nmap –iflist <a target="_blank" rel="noopener" href="http://www.xxx.com”/">www.xxx.com”</a><br>-e：指定网络接口 使用命令“nmap -e eth0 192.xxx”指定eth0网卡发送数据<br>-oG：继续中断扫描 使用命令“nmap -oG 1.txt -v 192.</em>/24”将扫描结果保存为txt文件，然后按下Ctrl+C中断扫描，但有时间需要继续扫描时，使用命令“nmap –resume 1.txt”<br>firewalk：探测防火墙<br>vmauthd-brute：vmware认证破解  </p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2020/08/08/%E4%B8%80%E6%AC%A1%E4%BB%8E%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%88%B0getshell%E7%9A%84%E6%B8%97%E9%80%8F%E8%AE%B0%E5%BD%95/">
+                    一次从任意文件下载到getshell的渗透记录
+                </a>
+            </div>
+        
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Nmap%E5%8F%82%E6%95%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E6%95%B4%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">Nmap参数的一些整理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">1、主机发现：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E6%90%9C%E7%B4%A2%E7%BD%91%E7%BB%9C"><span class="toc-number">1.3.</span> <span class="toc-text">2、搜索网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E3%80%81%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB%E4%B8%8E%E6%8E%A2%E6%B5%8B"><span class="toc-number">1.4.</span> <span class="toc-text">3、指纹识别与探测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E3%80%81%E9%80%9F%E7%8E%87%E8%B0%83%E6%95%B4"><span class="toc-number">1.5.</span> <span class="toc-text">4、速率调整</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%E3%80%81%E9%98%B2%E7%81%AB%E5%A2%99-IDS%E9%80%83%E9%80%B8"><span class="toc-number">1.6.</span> <span class="toc-text">5、防火墙&#x2F;IDS逃逸</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%E3%80%81%E9%83%A8%E5%88%86script%E8%84%9A%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="toc-number">1.7.</span> <span class="toc-text">6、部分script脚本使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%E3%80%81%E5%85%B6%E4%BB%96%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8"><span class="toc-number">1.8.</span> <span class="toc-text">7、其他的一些使用</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="Hide"  title="Show or Hide Table of Contents">
+
+    <script>
+        yiliaConfig.toc = ["Hide", "Show", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></i></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Namp杂记　| A dying dog？　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2020/08/08/%E4%B8%80%E6%AC%A1%E4%BB%8E%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%88%B0getshell%E7%9A%84%E6%B8%97%E9%80%8F%E8%AE%B0%E5%BD%95/" title="Pre: 一次从任意文件下载到getshell的渗透记录">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="Mini Archives"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/" title="Back to Homepage"><i class="fa fa-home"></i></a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/02/02/%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%9D%82%E8%AE%B0/">未授权访问杂记</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/18/%E5%AF%B9%E6%9F%90%E5%AD%A6%E6%A0%A1%E7%9A%84%E4%B8%80%E6%AC%A1%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">简单记一记对某学校的一次渗透测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/12/03/%E8%AE%B0%E4%B8%80%E6%AC%A1%E4%BA%91%E9%94%81WAF%E7%BB%95%E8%BF%87/">记一次简单的云锁WAF绕过</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/08/%E4%B8%80%E6%AC%A1%E4%BB%8E%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E5%88%B0getshell%E7%9A%84%E6%B8%97%E9%80%8F%E8%AE%B0%E5%BD%95/">一次从任意文件下载到getshell的渗透记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/25/Nmap%E6%9D%82%E8%AE%B0/">Namp杂记</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="Site Visitors"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="Page Hits"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 1;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="Back to Top"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="Comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="Go to Bottom"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
